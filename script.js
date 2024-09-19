@@ -5,8 +5,8 @@ function fetchAllApiData() {
         { id: 'getd1retention', callType: 'getd1retention' },
         { id: 'getd7retention', callType: 'getd7retention' },
         { id: 'getd30retention', callType: 'getd30retention' },
-        { id: 'getdmidtermretention', callType: 'get_mid_term_user_activity_rate'},
-        { id: 'get_weekly_active_users', callType: 'get_weekly_active_users'},
+        { id: 'getdmidtermretention', callType: 'get_mid_term_user_activity_rate' },
+        { id: 'get_weekly_active_users', callType: 'get_weekly_active_users' },
         { id: 'get_onboarding_completion', callType: 'get_onboarding_completion' },
         { id: 'get_lesson_completion', callType: 'get_lesson_completion' },
         { id: 'get_episode_unlocks', callType: 'get_episode_unlocks' },
@@ -39,7 +39,7 @@ function fetchAllApiData() {
 }
 
 function fetchApiData(id, callType) {
-    const url = 'http://localhost:7071/api/PracticeCall';  // 你的后端 API URL
+    const url = 'https://instancecaller.azurewebsites.net/api/practicecall';  // 你的后端 API URL
 
     fetch(url, {
         method: 'POST',
