@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.matrix {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.matrix h2 {
+    margin-top: 0;
+}
+
+pre {
+    white-space: pre-wrap; /* 保持 JSON 格式 */
+}
