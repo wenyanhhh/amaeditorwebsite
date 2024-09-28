@@ -4,272 +4,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instance UI Metrics Display</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Editor Notification Panel</title>
+
+    <!-- Google Font for improved typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        h1,
+        h2 {
+            color: #28a745;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        form {
+            background-color: #bed7ba;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        input,
+        textarea {
+            width: 95%;
+            padding: 12px;
+            /* Increased padding for larger input box */
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #495057;
+            /* background-color: #f3f4f4; */
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            /* Larger textarea */
+        }
+
+        button {
+            display: block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 0 auto;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive design */
+        @media (min-width: 768px) {
+            section {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Notification list styling */
+        .notification-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .notification-item {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+        }
+
+        .notification-item h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #28a745;
+        }
+
+        .notification-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #495057;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="container my-5">
-        <h1 class="text-center mb-5">North Star Metrics</h1>
+    <h1>Editor Notification Panel</h1>
 
-        <!-- Daily Active Users -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Daily Active Users (DAU): 昨日的日活跃用户数</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchdailyactiveusers-result">Loading...</pre>
-            </div>
-        </div>
+    <!-- Section 1: Send Push Notification Immediately -->
+    <section>
+        <h2>Send Push Notification Immediately</h2>
+        <form id="sendNotificationForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" placeholder="Enter notification title" required>
 
-        <!-- Weekly Active Users -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Weekly Active Users (WAU): 最近7天的活跃用户数</h4>
-            </div>
-            <div class="card-body">
-                <pre id="get_weekly_active_users-result">Loading...</pre>
-            </div>
-        </div>
+            <label for="body">Body:</label>
+            <textarea id="body" placeholder="Enter notification body" required></textarea>
 
-        <!-- Monthly Active Users -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Monthly Active Users (MAU): 最近30天的月活跃用户数</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchmonthlyactiveusers-result">Loading...</pre>
-            </div>
-        </div>
+            <label for="screen">Screen: Choose from News, SOS or leave empty</label>
+            <input type="text" id="screen" value="News" placeholder="Screen to navigate on open app">
 
-        <h2 class="mt-5 mb-4">Overall Retention Rate</h2>
+            <label for="userGroupId">User Group ID:</label>
+            <input type="text" id="userGroupId" value="new_users" placeholder="Group ID for the notification">
 
-        <!-- D1 Retention Summary -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D1 Retention Summary: 前一天的 D1 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchd1retentionsummary-result">Loading...</pre>
-            </div>
-        </div>
+            <button type="submit">Send Notification</button>
+        </form>
+    </section>
 
-        <!-- D7 Retention Summary -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D7 Retention Summary: 前一天的 D7 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchd7retentionsummary-result">Loading...</pre>
-            </div>
-        </div>
+    <!-- Section 2: Schedule Push Notification -->
+    <section>
+        <h2>Schedule Push Notification</h2>
+        <form id="scheduleNotificationForm">
+            <label for="title2">Title:</label>
+            <input type="text" id="title2" placeholder="Enter scheduled notification title" required>
 
-        <!-- D30 Retention Summary -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D30 Retention Summary: 前一天的 D30 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchd30retentionsummary-result">Loading...</pre>
-            </div>
-        </div>
+            <label for="body2">Body:</label>
+            <textarea id="body2" placeholder="Enter scheduled notification body" required></textarea>
 
-        <!-- Mid-term Retention -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Acquisition Survival: Proportion of T-14 to T-7 New Users Active During T-6 to T</h4>
-            </div>
-            <div class="card-body">
-                <pre id="getdmidtermretention-result">Loading...</pre>
-            </div>
-        </div>
+            <label for="scheduledTime">Scheduled Time (HH:mm): Must be :00 or :30</label>
+            <input type="text" id="scheduledTime" placeholder="21:30" required>
 
-        <!-- LT7 -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>LT7: 最近7天的平均活跃天数</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchaverageactivedays7-result">Loading...</pre>
-            </div>
-        </div>
+            <label for="scheduledDate">Scheduled Date (YYYY-MM-DD):</label>
+            <input type="text" id="scheduledDate" placeholder="2024-09-27" required>
 
-        <!-- LT30 -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>LT30: 最近30天的平均活跃天数</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchaverageactivedays30-result">Loading...</pre>
-            </div>
-        </div>
+            <label for="userGroupId2">User Group ID: choose from new_users, news_users and all_users</label>
+            <input type="text" id="userGroupId2" value="new_users" placeholder="Group ID for the notification">
 
-        <h1 class="text-center my-5">Acquisition Metrics</h1>
+            <button type="submit">Schedule Notification</button>
+        </form>
+    </section>
 
-        <!-- Daily New Users -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Daily New Users (DNU): 昨日新增用户数</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchdailynewusersmetrics-result">Loading...</pre>
-            </div>
-        </div>
+    <!-- Section 3: Display All Scheduled Notifications -->
+    <section>
+        <h2>All Scheduled Notifications</h2>
+        <ul id="notificationsList" class="notification-list"></ul>
+    </section>
 
-        <!-- Weekly New Users -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Weekly New Users (WNU): 最近一周新增用户数</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchweeklynewusersdata-result">Loading...</pre>
-            </div>
-        </div>
+    <script>
+        // Function to send notification immediately
+        document.getElementById('sendNotificationForm').addEventListener('submit', function (event) {
+            event.preventDefault();
 
-        <!-- Weekly Activation Metrics -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Weekly Activation Metrics: 用户激活转化率和数据</h4>
-            </div>
-            <div class="card-body">
-                <pre id="fetchweeklyactivationmetrics-result">Loading...</pre>
-            </div>
-        </div>
+            const payload = {
+                title: document.getElementById('title').value,
+                body: document.getElementById('body').value,
+                screen: document.getElementById('screen').value || 'News',
+                user_group_id: document.getElementById('userGroupId').value
+            };
+            console.log('Payload for sending notification:', payload);
 
-        <h2 class="mt-5 mb-4">DNU Retention Rate</h2>
+            fetch('http://127.0.0.1:5001/instance-fbe51/us-central1/sendPushNotification', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(response => response.ok ? alert('Notification sent successfully!') : alert('Failed to send notification'))
+                .catch(error => console.error('Error:', error));
+        });
 
-        <!-- D1 Retention Over Last 30 Days (New Users) -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D1 Retention Over Last 30 Days (New Users): 最近30天的新用户 D1 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="getd1retention30days-result">Loading...</pre>
-            </div>
-        </div>
+        // Function to schedule notification
+        document.getElementById('scheduleNotificationForm').addEventListener('submit', function (event) {
+            event.preventDefault();
 
-        <!-- D7 Retention Over Last 30 Days (New Users) -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D7 Retention Over Last 30 Days (New Users): 最近30天的新用户 D7 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="getd7retention30days-result">Loading...</pre>
-            </div>
-        </div>
+            const payload = {
+                title: document.getElementById('title2').value,
+                body: document.getElementById('body2').value,
+                scheduled_time: document.getElementById('scheduledTime').value,
+                scheduled_date: document.getElementById('scheduledDate').value,
+                user_group_id: document.getElementById('userGroupId2').value
+            };
 
-        <!-- D30 Retention Over Last 30 Days (New Users) -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D30 Retention Over Last 30 Days (New Users): 最近30天的新用户 D30 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="getd30retention30days-result">Loading...</pre>
-            </div>
-        </div>
+            fetch('https://us-central1-instance-fbe51.cloudfunctions.net/scheduleNotification', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(response => response.ok ? alert('Notification scheduled successfully!') : alert('Failed to schedule notification'))
+                .catch(error => console.error('Error:', error));
+        });
 
-        <!-- Overall D1 Retention -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D1 Retention: 最近七天的总体 D1 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="getd1retention-result">Loading...</pre>
-            </div>
-        </div>
+        // Function to fetch and display all scheduled notifications
+        function fetchScheduledNotifications() {
+            fetch('https://us-central1-instance-fbe51.cloudfunctions.net/getAllScheduledNotifications')
+                .then(response => response.json())
+                .then(data => {
+                    const notificationsList = document.getElementById('notificationsList');
+                    notificationsList.innerHTML = '';  // Clear any existing notifications
 
-        <!-- Overall D7 Retention -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D7 Retention (Overall): 最近七天的总体 D7 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="getd7retention-result">Loading...</pre>
-            </div>
-        </div>
+                    data.forEach(notification => {
+                        const item = document.createElement('li');
+                        item.classList.add('notification-item');
+                        item.innerHTML = `
+                            <h3>${notification.data.title}</h3>
+                            <p><strong>Body:</strong> ${notification.data.body}</p>
+                            <p><strong>Date:</strong> ${notification.data.scheduled_date}</p>
+                            <p><strong>Time:</strong> ${notification.data.scheduled_time}</p>
+                            <p><strong>User Group:</strong> ${notification.data.user_group_id}</p>
+                        `;
+                        notificationsList.appendChild(item);
+                    });
+                })
+                .catch(error => console.error('Error fetching notifications:', error));
+        }
 
-        <!-- Overall D30 Retention -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>D30 Retention (Overall): 最近七天的总体 D30 留存率</h4>
-            </div>
-            <div class="card-body">
-                <pre id="getd30retention-result">Loading...</pre>
-            </div>
-        </div>
+        // Call the function to fetch all scheduled notifications when the page loads
+        window.onload = fetchScheduledNotifications;
+    </script>
 
-        <h1 class="text-center my-5">Retention Metrics</h1>
-
-        <!-- Conversations Per User Week -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Conversations Per User Week</h4>
-            </div>
-            <div class="card-body">
-                <pre id="get_conversations_per_user_week-result">Loading...</pre>
-            </div>
-        </div>
-
-        <!-- Storylines Added Per User Week -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Storylines Added Per User Week</h4>
-            </div>
-            <div class="card-body">
-                <pre id="get_storylines_added_per_user_week-result">Loading...</pre>
-            </div>
-        </div>
-
-        <!-- News Details Clicked -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>News Details Clicked</h4>
-            </div>
-            <div class="card-body">
-                <pre id="get_news_details_clicked-result">Loading...</pre>
-            </div>
-        </div>
-
-        <!-- News Tab Click Rate -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>News Tab Click Rate</h4>
-            </div>
-            <div class="card-body">
-                <pre id="get_news_tab_click_rate-result">Loading...</pre>
-            </div>
-        </div>
-
-        <!-- Profile Tab Click Rate -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Profile Tab Click Rate</h4>
-            </div>
-            <div class="card-body">
-                <pre id="get_profile_tab_click_rate-result">Loading...</pre>
-            </div>
-        </div>
-
-        <h2 class="mt-5 mb-4">Churn Metrics</h2>
-
-        <!-- Churned Users -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Churned Users (7 Days Inactive)</h4>
-            </div>
-            <div class="card-body">
-                <pre id="get_churned_users-result">Loading...</pre>
-            </div>
-        </div>
-
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
 </body>
 
 </html>
