@@ -190,7 +190,7 @@
             };
             console.log('Payload for sending notification:', payload);
 
-            fetch('https://us-central1-instance-fbe51.cloudfunctions.net/us-central1/sendPushNotification', {
+            fetch('https://us-central1-instance-fbe51.cloudfunctions.net/sendPushNotification', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
